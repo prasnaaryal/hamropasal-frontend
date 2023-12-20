@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { BiHide, BiShow } from "react-icons/bi";
 import loginimage from "../assets/loginimage.gif";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ImagetoBase64 } from "../utility/ImagetoBase64";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [confirmPassword, setShowConfirmpassword] = useState(false);
   //to store value
@@ -13,6 +15,7 @@ const Signup = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    image: "",
   });
 
   console.log(data);
@@ -34,28 +37,76 @@ const Signup = () => {
       };
     });
   };
-  
-  const handleSubmit = (e) => {
+
+  const handleUploadProfileImage = async (e) => {
+    // console.log(e.target.files[0])
+    const data = await ImagetoBase64(e.target.files[0]);
+    console.log(data);
+
+    setData((preve) => {
+      return {
+        ...preve,
+        image: data,
+      };
+    });
+  };
+  console.log(process.env.REACT_APP_SERVER_DOMAIN);
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { firstName, email, password, confirmPassword } = data;
-    //if not empty
+
     if (firstName && email && password && confirmPassword) {
-      //check if password and confirm password are same
       if (password === confirmPassword) {
-        alert("sucess");
+        try {
+          const fetchData = await fetch(
+            `${process.env.REACT_APP_SERVER_DOMAIN}/signup`,
+            {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(data),
+            }
+          );
+
+          const dataRes = await fetchData.json();
+
+          if (dataRes.alert) {
+            navigate("/login");
+          }
+        } catch (error) {
+          console.error("Failed to fetch:", error);
+          // Handle the error as needed
+        }
       } else {
-        alert("password not equal");
+        alert("password and confirm password not equal");
       }
     } else {
-      alert("Pls enter required fields");
+      alert("Please Enter required fields");
     }
   };
 
   return (
     <div className="p-3 md:pd-4 ">
       <div className="w-full max-w-sm bg-white m-auto flex  flex-col p-4">
-        <div className="w-20 overflow-hidden rounded-full drop-shadow-md shadow-md m-auto">
-          <img src={loginimage} className="w-full" />
+        <div className="w-20 h-20 overflow-hidden rounded-full drop-shadow-md shadow-md m-auto ">
+          <img
+            src={data.image ? data.image : loginimage}
+            className="w-full h-full"
+          />
+
+          <label htmlFor="profileImage">
+            <div className="absolute bottom-0 h-1/3 bg-slate-500 bg-opacity-20 w-full text-center cursor-pointer">
+              <p className="text-sm p-1 text white">Upload</p>
+            </div>
+            <input
+              type={"file"}
+              id="profileImage"
+              accept="image/*"
+              className="hidden"
+              onChange={handleUploadProfileImage}
+            />
+          </label>
         </div>
 
         {/* //text form  */}
