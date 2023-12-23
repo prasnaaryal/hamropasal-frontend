@@ -3,6 +3,7 @@ import { BiHide, BiShow } from "react-icons/bi";
 import loginimage from "../assets/loginimage.gif";
 import { Link, useNavigate } from "react-router-dom";
 import { ImagetoBase64 } from "../utility/ImagetoBase64";
+import toast from "react-hot-toast";
 
 function Signup() {
   const navigate = useNavigate();
@@ -66,8 +67,10 @@ function Signup() {
         );
 
         const dataRes = await fetchData.json();
+        console.log(dataRes)
 
-        alert(dataRes.message);
+        // alert(dataRes.message);
+        toast(dataRes.message);
         if (dataRes.alert) {
           navigate("/login");
         }
