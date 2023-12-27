@@ -1,20 +1,27 @@
 import React, { useState } from "react";
 import { BiHide, BiShow } from "react-icons/bi";
 import loginimage from "../assets/loginimage.gif";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { loginRedux } from "../redux/userSlice";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   //to store value
   const [data, setData] = useState({
-    firstName: "",
-    lastName: "",
     email: "",
     password: "",
-    confirmPassword: "",
   });
 
-  console.log(data);
+  const navigate = useNavigate();
+
+  const userData = useSelector((state) => state);
+  console.log(userData.user);
+
+  const dispatch = useDispatch();
+
+  // console.log(data);
 
   const handleShowPassword = () => {
     setShowPassword((preve) => !preve);
@@ -30,16 +37,39 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { email, password } = data;
     //if not empty
     if (email && password) {
-      alert("sucess");
+      const fetchData = await fetch(
+        `${process.env.REACT_APP_SERVER_DOMAIN}/login`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      const dataRes = await fetchData.json();
+      // console.log(dataRes);
+      toast(dataRes.message);
+
+      if (dataRes.alert) {
+        //if login successful we can send the data to dispatch
+        dispatch(loginRedux(dataRes));
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      }
     } else {
       alert("Pls enter required fields");
     }
   };
+
+  console.log(userData);
   return (
     <div className="p-3 md:pd-4 ">
       <div className="w-full max-w-sm bg-white m-auto flex  flex-col p-4">
