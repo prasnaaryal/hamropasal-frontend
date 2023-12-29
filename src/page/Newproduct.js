@@ -26,50 +26,47 @@ const Newproduct = () => {
   const uploadImage = async (e) => {
     const data = await ImagetoBase64(e.target.files[0]);
     // console.log(data);
-    setData((preve)=>{
-      return{
+    setData((preve) => {
+      return {
         ...preve,
-        image:data
-      }
-    })
+        image: data,
+      };
+    });
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(data);
 
-  const {name,image,category,price}=data
-  if(name && image && category && price){
-    const fetchData=await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/uploadProduct`,{
-      method:"POST",
-      headers:{
-        "content-type":"application/json"
+    const { name, image, category, price } = data;
+    if (name && image && category && price) {
+      const fetchData = await fetch(
+        `${process.env.REACT_APP_SERVER_DOMAIN}/uploadProduct`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const fetchRes = await fetchData.json();
+      console.log(fetchRes);
+      toast(fetchRes.message);
 
-      },
-      body:JSON.stringify(data)
-
-    })
-    const fetchRes=await fetchData.json()
-    console.log(fetchRes)
-    toast(fetchRes.message)
-
-    setData(()=>{
-      return{
-        name: "",
-        category: "",
-        image: "",
-        price: "",
-        description: "",
-        
-      }
-    })
-  }
-
-  else{
-    toast("enter required fields")
-  }
-
-}
+      setData(() => {
+        return {
+          name: "",
+          category: "",
+          image: "",
+          price: "",
+          description: "",
+        };
+      });
+    } else {
+      toast("enter required fields");
+    }
+  };
 
   return (
     <div className="p-4">
@@ -82,7 +79,8 @@ const Newproduct = () => {
           type={"text"}
           name="name"
           className="bg-slate-200 p-1 my-1"
-          onChange={handleOnChange} value={data.name} 
+          onChange={handleOnChange}
+          value={data.name}
         />
 
         <label htmlFor="category">Category</label>
@@ -98,20 +96,25 @@ const Newproduct = () => {
           <option value={"Vegetable"}>Vegetable</option>
           <option value={"Icecream"}>Icecream</option>
           <option value={"Dosa"}>Dosa</option>
-          <option value={"Pizza"}>Pizza</option>
+          <option value={"Laptop"}>Laptop</option>
+          <option value={"Bag"}>Bag</option>
+          <option value={"Bottle"}>Bottle</option>
+          <option value={"Clothes"}>Clothes</option>
+          <option value={"Phone"}>Phone</option>
+          <option value={"PC"}>PC</option>
         </select>
 
         <label htmlFor="image">
           Image
           <div className="h-40 w-full bg-slate-300 my-3 rounded flex items-center justify-center cursor-pointer">
             {/* conditions for image */}
-            {
-            data.image? <img src={data.image} className="h-full"/> : <span className="text-5xl">
-            <BsCloudUpload />
-          </span>
-          }
-           
-           
+            {data.image ? (
+              <img src={data.image} className="h-full" />
+            ) : (
+              <span className="text-5xl">
+                <BsCloudUpload />
+              </span>
+            )}
 
             <input
               type={"file"}
