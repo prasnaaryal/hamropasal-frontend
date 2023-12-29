@@ -40,7 +40,7 @@ const Header = () => {
         </Link>
 
         <div className="flex items-center gap-4 md:gap 7">
-          <nav className="flex gap-4 md:gap-6 text-base md:text-lg">
+          <nav className="gap-4 md:gap-6 text-base md:text-lg hidden md:flex">
             <Link to={""}>Home</Link>
             <Link to={"menu"}>Menu</Link>
             <Link to={"about"}>About</Link>
@@ -62,7 +62,7 @@ const Header = () => {
                <HiOutlineUserCircle /> )}
             </div>
             {showMenu && (
-              <div className="absolute right-2 bg-white py -2  shadow drop-shadow-md flex flex-col">
+              <div className="absolute right-2 bg-white py -2  shadow drop-shadow-md flex flex-col min-w-[120] text-center">
                 {
                   userData.email ===process.env.REACT_APP_ADMIN_EMAIL &&                 <Link to={"newproduct"}className="whitespace-nowrap cursor-pointer px -2">New product</Link>
 
@@ -70,6 +70,12 @@ const Header = () => {
                 {
                 userData.image ?<p className="cursor-pointer text-white px-2 bg-red-500 " onClick={handleLogout}>Logout ({userData.firstName})</p> : <Link to={"login"} className="whitespace-nowrap cursor-pointer px-2">login</Link>
                 }
+                 <nav className="text-base md:text-lg flex flex-col md:hidden">
+            <Link to={""} className="px-2 py-1">Home</Link>
+            <Link to={"menu"} className="px-2 py-1">Menu</Link>
+            <Link to={"about"} className="px-2 py-1">About</Link>
+            <Link to={"contact"} className="px-2 py-1">Contact</Link>
+          </nav>
               </div>
             )}
           </div>
