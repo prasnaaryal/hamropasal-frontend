@@ -13,7 +13,7 @@ const Header = () => {
 
   // to show user icon and get data from userdata
   const userData=useSelector((state)=>state.user)
-  console.log(userData.mail)
+  // console.log(userData.mail)
   const dispatch=useDispatch()
 
 
@@ -27,7 +27,9 @@ const Header = () => {
     toast("logout successfully")
   }
 
-  console.log(process.env.REACT_APP_ADMIN_EMAIL)
+  const cartItemNumber=useSelector((state)=>state.product.cartItem)
+
+  // console.log(process.env.REACT_APP_ADMIN_EMAIL)
   return (
     <header className="fixed shadow-md w-full h-16 px-2 md:px-4 z-50 bg-white">
       {/* desktop */}
@@ -42,15 +44,16 @@ const Header = () => {
         <div className="flex items-center gap-4 md:gap 7">
           <nav className="gap-4 md:gap-6 text-base md:text-lg hidden md:flex">
             <Link to={""}>Home</Link>
-            <Link to={"menu"}>Menu</Link>
+            <Link to={"menu/658d97fea4bba6f2d57142d9"}>Menu</Link>
             <Link to={"about"}>About</Link>
             <Link to={"contact"}>Contact</Link>
           </nav>
           <div className="text-2xl text-red-600 relative">
-            <BsCartFill />
+           <Link to={"cart"}><BsCartFill />
             <div className="absolute -top-2 -right-1 text-white bg-red-500 h-4 w-4 rounded-full m-0 p-0 text-sm text-center">
-              0
+              {cartItemNumber.length}
             </div>
+            </Link> 
           </div>
           
           <div className="text-slate-600 " onClick={handleShowMenu} >
@@ -72,7 +75,7 @@ const Header = () => {
                 }
                  <nav className="text-base md:text-lg flex flex-col md:hidden">
             <Link to={""} className="px-2 py-1">Home</Link>
-            <Link to={"menu"} className="px-2 py-1">Menu</Link>
+            <Link to={"menu/658d97fea4bba6f2d57142d9"} className="px-2 py-1">Menu</Link>
             <Link to={"about"} className="px-2 py-1">About</Link>
             <Link to={"contact"} className="px-2 py-1">Contact</Link>
           </nav>
