@@ -10,9 +10,9 @@ const Cart = () => {
     <div className='p-2 md:p-4'>
         <h2 className='text-lg md:text-2xl font-bold text-slate-600'>Your Cart items</h2>
 
-        <div className=''>
+        <div className='my-4'>
             {/* displaying cart items */}
-            <div className=''>
+            <div className='w-full max-w-3xl'>
                 {
                     productCartItem.map(el=>{
                       return(
