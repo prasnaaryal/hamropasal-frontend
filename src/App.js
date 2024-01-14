@@ -1,11 +1,13 @@
 import logo from "./logo.svg";
 import "./App.css";
-import Header from "./component/Header";
+import Header from "./layout/Header";
+
 import { Outlet } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setDataProduct } from "./redux/productSlide";
+import Footer from "./layout/Footer";
 
 function App() {
 
@@ -31,6 +33,7 @@ function App() {
       <main className="pt-16 bg-slate-100">
         <Outlet />
       </main>
+      <Footer/>
     </div>
     </>
   );
