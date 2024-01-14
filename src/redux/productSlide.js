@@ -50,7 +50,7 @@ export const productSlice = createSlice({
 
       let qty = state.cartItem[index].qty;
       if (qty > 1) {
-        const qtyDec = ++qty;
+        const qtyDec = --qty;
         state.cartItem[index].qty = qtyDec;
         const price = state.cartItem[index].price;
         const total = price * qtyDec;

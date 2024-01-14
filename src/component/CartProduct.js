@@ -1,52 +1,80 @@
 import React from "react";
 import { TbPlus, TbMinus } from "react-icons/tb";
-import {AiFillDelete} from "react-icons/ai"
+import { AiFillDelete } from "react-icons/ai";
 import { useDispatch } from "react-redux";
-import { decreaseQty, deleteCartItem, increaseQty } from "../redux/productSlide";
+import {
+  decreaseQty,
+  deleteCartItem,
+  increaseQty,
+} from "../redux/productSlide";
 
 const CartProduct = ({ id, name, image, category, qty, total, price }) => {
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
 
   return (
-    <div className="bg-slate-200 p-2 flex gap-4 rounded border border-slate-200">
-      <div className="p-3 bg-white rounded overflow-hidden">
-        <img src={image} className="h-28 w-40 object-cover" />
-      </div>
-      <div className="flex flex-col gap-1 w-full">
-        <div>
-        <h3 className="font-semibold text-slate-600 text-center capitalize text-lg md:text-xl">
-          {name}
-        </h3>
-        <div className="cursor-pointer text-slate-700 hover:text-red-500" onClick={()=>dispatch(deleteCartItem(id))}>
-        <AiFillDelete/>
-        </div>
+    <div>
+      <div >
+        <div className="grid grid-cols-12 w-full">
+          <div className="col-span-2 flex items-center w-full justify-center">
+            <div className="p-3 bg-white rounded overflow-hidden">
+              <img src={image} className="h-28 w-40 object-cover" />
+            </div>
+          </div>
 
-        </div>
-        <p className="text-slate-500 font-medium">{category}</p>
+          <div className="col-span-2 flex items-center w-full justify-center">
+            <h3 className="font-semibold text-slate-600 text-center capitalize text-lg md:text-xl">
+              {name}
+              <span>
+                <p className="text-slate-500 font-medium text-xs">{category}</p>
+              </span>
+            </h3>
+          </div>
 
-        <p className="font-bold text-base">
-          <span className="text-red-500">Rs</span>
-          <span>{price}</span>
-        </p>
-        <div className="flex justify-between">
-        <div className="flex gap-3 items-center">
-          <button onClick={()=>dispatch(increaseQty(id))} className="bg-slate-300 py-1 mt-2 rounded hover:bg-slate-400 p-1">
-            <TbPlus />
-          </button>
-          <p className="font-semibold p-1">{qty}</p>
+          <div className="col-span-2 flex items-center w-full justify-center">
+            <p className="font-bold text-base">
+              <span className="text-red-500">Rs</span>
+              <span>{price}</span>
+            </p>
+          </div>
+          <div className="col-span-2 flex items-center w-full justify-center">
+            <div className="flex justify-between">
+              <div className="flex gap-3 items-center">
+                <button
+                  onClick={() => dispatch(increaseQty(id))}
+                  className="bg-slate-300 py-1 mt-2 rounded hover:bg-slate-400 p-1"
+                >
+                  <TbPlus />
+                </button>
+                <p className="font-semibold p-1">{qty}</p>
 
-          <button
-            className="bg-slate-300 py-1 mt-2 rounded hover:bg-slate-400 p-1 "
-            onClick={()=>dispatch(decreaseQty(id))}
-          >
-            <TbMinus />
-          </button>
-        </div>
-        <div className="flex items-center gap-2 font-bold text-slate-700">
-          <p>Total</p>
-          <p>              <span className="text-red-500">Rs</span>
-{total}</p>
-        </div>
+                <button
+                  className="bg-slate-300 py-1 mt-2 rounded hover:bg-slate-400 p-1 "
+                  onClick={() => dispatch(decreaseQty(id))}
+                >
+                  <TbMinus />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="col-span-2 flex items-center w-full justify-center">
+            <div className="flex items-center gap-2 font-bold text-slate-700">
+              <p>
+                {" "}
+                <span className="text-red-500">Rs</span>
+                {total}
+              </p>
+            </div>
+          </div>
+
+          <div className="col-span-2 flex items-center w-full justify-center">
+            <div
+              className="cursor-pointer text-slate-700 hover:text-red-500"
+              onClick={() => dispatch(deleteCartItem(id))}
+            >
+              <AiFillDelete />
+            </div>
+          </div>
         </div>
       </div>
     </div>
