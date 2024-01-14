@@ -5,8 +5,8 @@ import appstore from "../assets/appstore.png";
 import googlestore from "../assets/googlestore.png";
 const Footer = () => {
   return (
-    <div className="w-full h-96 bg-[#D99716]">
-      <div className="p-28 grid grid-cols-12">
+    <div className="w-full h-96 bg-[#D99716] p-28">
+      <div className=" grid grid-cols-12">
         <div className="col-span-3 flex flex-col gap-6">
           <h1 className="text-xl font-medium leading-7 text-white ">Support</h1>
           <div className="flex flex-col gap-4">
