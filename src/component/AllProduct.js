@@ -33,7 +33,7 @@ const AllProduct = ({ heading }) => {
       <h2 className="font-bold text-2xl text-slate-800 mb-4">{heading}</h2>
 
       <div className="flex gap-4 justify-center overflow-scroll scrollbar-none">
-        {categoryList[0] ?
+        {categoryList[0] ? (
           categoryList.map((el) => {
             return (
               <FilterProduct
@@ -43,31 +43,32 @@ const AllProduct = ({ heading }) => {
               />
             );
           })
-        :(
-        <div className="min-h-[150px] flex justify-center items">
-          <p>loading..</p>
-        </div>)
-        }
+        ) : (
+          <div className="min-h-[150px] flex justify-center items">
+            <p>loading..</p>
+          </div>
+        )}
       </div>
 
-      <div className="flex flex-wrap justify-center gap-4 my-4">
-        {dataFilter[0] ?dataFilter.map((el) => {
-          return (
-            <CardFeature
-              key={el._id}
-              id={el._id}
-              image={el.image}
-              name={el.name}
-              category={el.category}
-              price={el.price}
-            />
-          );
-        })
-        :
-        loadingArrayFeature.map((el,index) => (
-          <CardFeature loading="loading..." key={index +"allProduct"} />
-        ))
-        }
+      <div className="grid grid-cols-12 gap-4 my-4 px-40">
+        {dataFilter[0]
+          ? dataFilter.map((el) => {
+              return (
+                <div className="col-span-3">
+                  <CardFeature
+                    key={el._id}
+                    id={el._id}
+                    image={el.image}
+                    name={el.name}
+                    category={el.category}
+                    price={el.price}
+                  />
+                </div>
+              );
+            })
+          : loadingArrayFeature.map((el, index) => (
+              <CardFeature loading="loading..." key={index + "allProduct"} />
+            ))}
       </div>
     </div>
   );
