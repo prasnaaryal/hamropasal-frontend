@@ -44,7 +44,7 @@ const Home = () => {
             <span className="text-red-900">Your home </span>
           </h2>
           <p className="py-3 text-base">
-    .............................................
+            .............................................
           </p>
           <button className="font-bold bg-red-500 text-slate-200 px-4 py-2 rounded-md ">
             Order Now
@@ -68,7 +68,9 @@ const Home = () => {
                 );
               })
             : loadingArray.map((el, index) => {
-                return <Homecard key={index+"loading"} loading={"Loading..."} />;
+                return (
+                  <Homecard key={index + "loading"} loading={"Loading..."} />
+                );
               })}
         </div>
       </div>
@@ -114,11 +116,11 @@ const Home = () => {
                 </div>
               );
             })
-          : loadingArrayFeature.map((el,index) => (
-              <CardFeature loading="loading..." key={index+"cartLoading"} />
+          : loadingArrayFeature.map((el, index) => (
+              <CardFeature loading="loading..." key={index + "cartLoading"} />
             ))}
       </div>
-      <AllProduct heading={"Your Product"} />
+      <AllProduct heading={"Browse By Category"} />
     </div>
   );
 };

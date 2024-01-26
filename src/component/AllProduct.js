@@ -29,7 +29,7 @@ const AllProduct = ({ heading }) => {
   //   console.log({ dataFilter });
 
   return (
-    <div className="my-5">
+    <div className="my-5 flex flex-col gap-5">
       <h2 className="font-bold text-2xl text-slate-800 mb-4">{heading}</h2>
 
       <div className="flex gap-4 justify-center overflow-scroll scrollbar-none">
@@ -49,6 +49,10 @@ const AllProduct = ({ heading }) => {
           </div>
         )}
       </div>
+
+      <h2 className="font-bold text-2xl text-slate-800 mb-4">
+        Featured Products
+      </h2>
 
       <div className="grid grid-cols-12 gap-4 my-4 px-40">
         {dataFilter[0]
