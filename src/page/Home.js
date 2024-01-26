@@ -102,14 +102,16 @@ const Home = () => {
           ? homeProductCartListvegetables.map((el) => {
               console.log({ el });
               return (
-                <CardFeature
-                  key={el._id}
-                  id={el?._id}
-                  name={el.name}
-                  category={el.category}
-                  price={el.price}
-                  image={el.image}
-                />
+                <div className="min-w-[280px] max-w-[400px] w-full">
+                  <CardFeature
+                    key={el._id}
+                    id={el?._id}
+                    name={el.name}
+                    category={el.category}
+                    price={el.price}
+                    image={el.image}
+                  />
+                </div>
               );
             })
           : loadingArrayFeature.map((el,index) => (
