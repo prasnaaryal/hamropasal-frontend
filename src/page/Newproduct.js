@@ -70,81 +70,92 @@ const Newproduct = () => {
 
   return (
     <div className="p-4">
+      <h1 className="font-semibold text-2xl">Add New Product</h1>
       <form
-        className="m-auto w-full max-w-md shadow flex flex-col p-3 bg-white"
+        className="m-auto w-full max-w-xl shadow flex flex-col gap-4  px-6 py-8 bg-white rounded-lg"
         onSubmit={handleSubmit}
       >
-        <label htmlFor="name">Name</label>
-        <input
-          type={"text"}
-          name="name"
-          className="bg-slate-200 p-1 my-1"
-          onChange={handleOnChange}
-          value={data.name}
-        />
+        <div className="flex flex-col">
+          <label htmlFor="name">Name</label>
+          <input
+            type={"text"}
+            name="name"
+            className="bg-slate-200 p-2 rounded-lg"
+            onChange={handleOnChange}
+            value={data.name}
+          />
+        </div>
 
-        <label htmlFor="category">Category</label>
-        <select
-          className="bg-slate-200 p-1 my-1"
-          id="category"
-          name="category"
-          onChange={handleOnChange}
-          value={data.category}
-        >
-          <option value={"other"}>Select Category</option>
-          <option value={"Fruits"}>Fruits</option>
-          <option value={"Vegetable"}>Vegetable</option>
-          <option value={"Icecream"}>Icecream</option>
-          <option value={"Dosa"}>Dosa</option>
-          <option value={"Laptop"}>Laptop</option>
-          <option value={"Bag"}>Bag</option>
-          <option value={"Bottle"}>Bottle</option>
-          <option value={"Clothes"}>Clothes</option>
-          <option value={"Phone"}>Phone</option>
-          <option value={"PC"}>PC</option>
-        </select>
+        <div className="flex flex-col">
+          <label htmlFor="category">Category</label>
+          <select
+            className="bg-slate-200 p-2 rounded-lg"
+            id="category"
+            name="category"
+            onChange={handleOnChange}
+            value={data.category}
+          >
+            <option value={"other"}>Select Category</option>
+            <option value={"Fruits"}>Fruits</option>
+            <option value={"Vegetable"}>Vegetable</option>
+            <option value={"Icecream"}>Icecream</option>
+            <option value={"Dosa"}>Dosa</option>
+            <option value={"Laptop"}>Laptop</option>
+            <option value={"Bag"}>Bag</option>
+            <option value={"Bottle"}>Bottle</option>
+            <option value={"Clothes"}>Clothes</option>
+            <option value={"Phone"}>Phone</option>
+            <option value={"PC"}>PC</option>
+          </select>
+        </div>
 
-        <label htmlFor="image">
-          Image
-          <div className="h-40 w-full bg-slate-300 my-3 rounded flex items-center justify-center cursor-pointer">
-            {/* conditions for image */}
-            {data.image ? (
-              <img src={data.image} className="h-full" />
-            ) : (
-              <span className="text-5xl">
-                <BsCloudUpload />
-              </span>
-            )}
+        <div className="flex flex-col">
+          <label htmlFor="image">
+            Image
+            <div className="h-40 w-full bg-slate-300 rounded-lg flex items-center justify-center cursor-pointer">
+              {/* conditions for image */}
+              {data.image ? (
+                <img src={data.image} className="h-full" />
+              ) : (
+                <span className="text-5xl">
+                  <BsCloudUpload />
+                </span>
+              )}
 
-            <input
-              type={"file"}
-              accept="image/*"
-              id="image"
-              onChange={uploadImage}
-              className="hidden"
-            />
-          </div>
-        </label>
+              <input
+                type={"file"}
+                accept="image/*"
+                id="image"
+                onChange={uploadImage}
+                className="hidden"
+              />
+            </div>
+          </label>
+        </div>
 
-        <label htmlFor="price">Price </label>
-        <input
-          type={"text"}
-          className="bg-slate-200 p-1 my-1"
-          name="price"
-          onChange={handleOnChange}
-          value={data.price}
-        />
+        <div className="flex flex-col">
+          <label htmlFor="price">Price </label>
+          <input
+            type={"text"}
+            className="bg-slate-200 p-2 rounded-lg"
+            name="price"
+            onChange={handleOnChange}
+            value={data.price}
+          />
+        </div>
 
-        <label htmlFor="description">Description </label>
-        <textarea
-          rows={3}
-          className="bg-slate-200 p-1 my-1 resize-none"
-          name="description"
-          onChange={handleOnChange}
-          value={data.description}
-        />
+        <div className="flex flex-col">
+          <label htmlFor="description">Description </label>
+          <textarea
+            rows={3}
+            className="bg-slate-200 p-2 resize-none rounded-lg"
+            name="description"
+            onChange={handleOnChange}
+            value={data.description}
+          />
+        </div>
 
-        <button className="bg-red-500 hover:bg-red-600 text-white text-lg font-medium my-2 drop-shadow">
+        <button className="w-full max-w-[200px] m-auto bg-red-500 hover:bg-red-600 cursor-pointer  text-white text-xl font-medium text-center py-2 rounded-full mt-4">
           Save
         </button>
       </form>
