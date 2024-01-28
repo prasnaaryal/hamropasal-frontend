@@ -55,18 +55,27 @@ const Login = () => {
       );
 
       const dataRes = await fetchData.json();
-      // console.log(dataRes);
+      console.log({ dataRes });
       toast(dataRes.message);
 
       if (dataRes.alert) {
-        //if login successful we can send the data to dispatch
-        dispatch(loginRedux(dataRes));
-        setTimeout(() => {
-          navigate("/");
-        }, 1000);
+        // If login successful, check if the email is admin email
+        if (dataRes.data.email === process.env.REACT_APP_ADMIN_EMAIL) {
+          // If it's the admin email, navigate to /manage/dashboard
+          dispatch(loginRedux(dataRes));
+          setTimeout(() => {
+            navigate("/manage/dashboard");
+          }, 1000);
+        } else {
+          // If it's not the admin email, send the data to dispatch and navigate accordingly
+          dispatch(loginRedux(dataRes));
+          setTimeout(() => {
+            navigate("/");
+          }, 1000);
+        }
+      } else {
+        alert("Pls enter required fields");
       }
-    } else {
-      alert("Pls enter required fields");
     }
   };
 

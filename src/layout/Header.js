@@ -27,6 +27,7 @@ const Header = () => {
 
   const cartItemNumber = useSelector((state) => state.product.cartItem);
 
+  console.log({ userData });
   // console.log(process.env.REACT_APP_ADMIN_EMAIL)
   return (
     <header className="fixed shadow-md w-full h-16 px-2 md:px-4 z-50 bg-white">
@@ -92,18 +93,18 @@ const Header = () => {
                 )}
               </div>
               {showMenu && (
-                <div className="absolute right-2 bg-white py -2  shadow drop-shadow-md flex flex-col min-w-[120] text-center">
+                <div className="absolute right-2 bg-white shadow drop-shadow-md flex flex-col min-w-[120] text-center">
                   {userData.email === process.env.REACT_APP_ADMIN_EMAIL && (
                     <Link
-                      to={"newproduct"}
-                      className="whitespace-nowrap cursor-pointer px -2"
+                      to={"manage/dashboard"}
+                      className="whitespace-nowrap cursor-pointer p-2"
                     >
-                      New product
+                      Dashboard
                     </Link>
                   )}
                   {userData.image ? (
                     <p
-                      className="cursor-pointer text-white px-2 bg-red-500 "
+                      className="cursor-pointer text-white p-2 bg-red-500 "
                       onClick={handleLogout}
                     >
                       Logout ({userData.firstName})
