@@ -21,6 +21,7 @@ import { store } from "./redux";
 import Cart from "./page/Cart";
 import Dashboard from "./page/manage/Dashboard";
 import ProductList from "./page/manage/ProductList";
+import Settings from "./page/manage/Settings";
 
 
 const router = createBrowserRouter(
@@ -37,6 +38,7 @@ const router = createBrowserRouter(
       <Route path="cart" element={<Cart />} />
       <Route path="manage/dashboard" element={<Dashboard />} />
       <Route path="manage/productlist" element={<ProductList />} />
+      <Route path="manage/settings" element={<Settings />} />
     </Route>
   )
   

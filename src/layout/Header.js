@@ -102,6 +102,14 @@ const Header = () => {
                       Dashboard
                     </Link>
                   )}
+                  {userData.email ? (
+                    <Link
+                      to={"manage/settings"}
+                      className="whitespace-nowrap cursor-pointer p-2"
+                    >
+                      Settings
+                    </Link>
+                  ) : null}
                   {userData.image ? (
                     <p
                       className="cursor-pointer text-white p-2 bg-red-500 "
@@ -117,6 +125,7 @@ const Header = () => {
                       login
                     </Link>
                   )}
+
                   <nav className="text-base md:text-lg flex flex-col md:hidden">
                     <Link to={""} className="px-2 py-1">
                       Home
