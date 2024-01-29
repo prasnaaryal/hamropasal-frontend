@@ -45,7 +45,7 @@ const Header = () => {
             <Link to={""}>Home</Link>
             <Link to={"menu/658d97fea4bba6f2d57142d9"}>Menu</Link>
             <Link to={"#"}>About</Link>
-            <Link to={"contact"}>Contact</Link>
+            <Link to={"#"}>Contact</Link>
           </nav>
         </div>
 

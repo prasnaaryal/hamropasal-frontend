@@ -11,7 +11,6 @@ import {
 } from "react-router-dom";
 import Home from "./page/Home";
 import Menu from "./page/Menu";
-import Contact from "./page/Contact";
 import Newproduct from "./page/Newproduct";
 import Login from "./page/Login";
 import Signup from "./page/Signup";
@@ -22,14 +21,12 @@ import Dashboard from "./page/manage/Dashboard";
 import ProductList from "./page/manage/ProductList";
 import Settings from "./page/manage/Settings";
 
-
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index element={<Home />} />
       {/* <Route path="menu" element={<Menu />} /> */}
       <Route path="menu/:filterby" element={<Menu />} />
-      <Route path="contact" element={<Contact />} />
       <Route path="login" element={<Login />} />
       <Route path="manage/newproduct" element={<Newproduct />} />
       <Route path="signup" element={<Signup />} />
@@ -39,7 +36,6 @@ const router = createBrowserRouter(
       <Route path="manage/settings" element={<Settings />} />
     </Route>
   )
-  
 );
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
