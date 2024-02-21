@@ -1,40 +1,81 @@
-import logo from "./logo.svg";
+// src/App.js
+import React, { useEffect } from "react";
 import "./App.css";
 import Header from "./layout/Header";
-
 import { Outlet } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setDataProduct } from "./redux/productSlide";
 import Footer from "./layout/Footer";
+import { useDispatch } from "react-redux";
+import { setUserData } from "./redux/userSlice"; // Adjust import path as necessary
+import { setDataProduct } from "./redux/productSlice";
+import { setDataCategory } from "./redux/categorySlice";
+import { SearchProvider } from "./context/SearchContext";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function App() {
+  const dispatch = useDispatch();
 
-  const dispatch=useDispatch()
+  useEffect(() => {
+    // Fetch products
+    (async () => {
+      const res = await fetch(
+        `${process.env.REACT_APP_SERVER_DOMAIN}/product/getallproducts`
+      );
+      const resData = await res.json();
+      dispatch(setDataProduct(resData));
+    })();
+  }, [dispatch]);
 
-  const productData=useSelector((state)=>state.product)
+  useEffect(() => {
+    // Fetch categories
+    (async () => {
+      const res = await fetch(
+        `${process.env.REACT_APP_SERVER_DOMAIN}/category`
+      );
+      const resData = await res.json();
+      dispatch(setDataCategory(resData));
+    })();
+  }, [dispatch]);
 
-  useEffect(()=>{
-    (async()=>{
-      const res=await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/product`)
-      const resData=await res.json()
-      console.log(resData)
-      dispatch(setDataProduct(resData))
-  
-  })()},[])
-  console.log(productData)
+  useEffect(() => {
+    // Fetch and set user data
+    (async () => {
+      const accessToken = localStorage.getItem("accessToken");
+      if (accessToken) {
+        try {
+          const response = await fetch(
+            `${process.env.REACT_APP_SERVER_DOMAIN}/user/load-user`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          );
+          if (response.ok) {
+            const userData = await response.json();
+            dispatch(setUserData(userData)); // Dispatch the user data
+          } else {
+            console.error("Failed to load user data");
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      }
+    })();
+  }, [dispatch]);
 
   return (
     <>
-    <Toaster/>
-    <div>
-      <Header />
-      <main className="pt-16 bg-slate-100">
-        <Outlet />
-      </main>
-      <Footer/>
-    </div>
+      <SearchProvider>
+        <Toaster />
+        <Header />
+        <main className="pt-16 bg-slate-100">
+          <Outlet />
+        </main>
+        <Footer />
+      </SearchProvider>
     </>
   );
 }

@@ -3,16 +3,15 @@ import { FiEdit } from "react-icons/fi";
 import { MdEditSquare } from "react-icons/md";
 import authimg from "../../assets/authimg.png";
 import { IoIosSettings } from "react-icons/io";
+import { useSelector } from "react-redux";
 
 const Settings = () => {
+  const userData = useSelector((state) => state.user);
+
   const [isEditingPassword, setIsEditingPassword] = useState(false);
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
-
-  const handleEditAvatar = () => {
-    console.log("Edit avatar clicked");
-  };
 
   const handleEditPassword = () => {
     setIsEditingPassword(true);
@@ -55,23 +54,26 @@ const Settings = () => {
                 <span className="text-gray-700">Avatar</span>
                 <div className="relative">
                   <img
-                    src="https://github.com/shadcn.png"
-                    alt="User Avatar"
-                    className="h-16 w-16 rounded-full"
+                    src={userData?.image}
+                    alt={userData?.firstName}
+                    className="h-16 w-16 rounded-full object-cover"
                   />
-                  <button
-                    onClick={handleEditAvatar}
-                    className="absolute bottom-0 right-0 rounded-full bg-white p-0 h-7 w-7"
-                  >
-                    <MdEditSquare className="h-4 w-4 ml-1.5" />
-                  </button>
+                </div>
+              </div>
+
+              <div className="py-4 flex justify-between items-center">
+                <span className="text-gray-700">Name</span>
+                <div className="flex items-center space-x-3">
+                  <span className="text-gray-900 text-sm">
+                    {userData.firstName} {userData.lastName}
+                  </span>
                 </div>
               </div>
 
               <div className="py-4 flex justify-between items-center">
                 <span className="text-gray-700">Email</span>
                 <div className="flex items-center space-x-3">
-                  <span className="text-gray-900 text-sm">pp@pp.com</span>
+                  <span className="text-gray-900 text-sm">{userData.email}</span>
                 </div>
               </div>
 

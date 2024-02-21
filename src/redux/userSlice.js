@@ -1,40 +1,46 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { act } from "react-dom/test-utils"
+// src/redux/userSlice.js
+import { createSlice } from "@reduxjs/toolkit";
 
-const initialState={
-    email:"",
-    firstName:"",
-    image:"",
-    lastName:"",
-    _id:"",
-}
+const initialState = {
+  isLoggedIn: false,
+  email: "",
+  firstName: "",
+  image: "",
+  lastName: "",
+  _id: "",
+};
 
-export const userSlice=createSlice({
-    name:"user",
-    initialState,
-    //reducers handle action in redux
-    reducers:{
-        loginRedux:(state,action)=>{
-            //payload will contain data from server with the key data and set it to initialstate
-            console.log(action.payload.data)
-            state._id=action.payload.data._id
-            state.firstName=action.payload.data.firstName
-            state.lastName=action.payload.data.lastName
-            state.email=action.payload.data.email
-            state.image=action.payload.data.image
+export const userSlice = createSlice({
+  name: "user",
+  initialState,
+  reducers: {
+    loginRedux: (state, action) => {
+      state.isLoggedIn = true
+      state._id = action.payload.user._id;
+      state.firstName = action.payload.user.firstName;
+      state.lastName = action.payload.user.lastName;
+      state.email = action.payload.user.email;
+      state.image = action.payload.user.image;
+    },
+    logoutRedux: (state) => {
+      state.isLoggedIn = false;
+      state._id = "";
+      state.firstName = "";
+      state.lastName = "";
+      state.email = "";
+      state.image = "";
+    },
+    setUserData: (state, action) => {
+      state.isLoggedIn = true;
+      state._id = action.payload.user._id;
+      state.firstName = action.payload.user.firstName;
+      state.lastName = action.payload.user.lastName;
+      state.email = action.payload.user.email;
+      state.image = action.payload.user.image;
+    },
+  },
+});
 
+export const { loginRedux, logoutRedux, setUserData } = userSlice.actions;
 
-        },
-        logoutRedux:(state,action)=>{
-            state._id="";
-            state.firstName="";
-            state.lastName="";
-            state.email="";
-            state.image="";
-
-
-        },
-    }
-})
-export const {loginRedux,logoutRedux}  =userSlice.actions
-export default userSlice.reducer
+export default userSlice.reducer;

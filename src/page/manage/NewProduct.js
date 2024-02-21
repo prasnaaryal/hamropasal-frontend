@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { BsCloudUpload } from "react-icons/bs";
-import { ImagetoBase64 } from "../utility/ImagetoBase64";
+import { ImagetoBase64 } from "../../utility/ImagetoBase64";
 import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const Newproduct = () => {
+  const categoryData = useSelector((state) => state.category.categoryList);
+
   const [data, setData] = useState({
     name: "",
     category: "",
@@ -40,12 +43,14 @@ const Newproduct = () => {
 
     const { name, image, category, price } = data;
     if (name && image && category && price) {
+      const accessToken = localStorage.getItem("accessToken");
       const fetchData = await fetch(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/uploadProduct`,
+        `${process.env.REACT_APP_SERVER_DOMAIN}/product`,
         {
           method: "POST",
           headers: {
             "content-type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify(data),
         }
@@ -95,17 +100,12 @@ const Newproduct = () => {
             onChange={handleOnChange}
             value={data.category}
           >
-            <option value={"other"}>Select Category</option>
-            <option value={"Fruits"}>Fruits</option>
-            <option value={"Vegetable"}>Vegetable</option>
-            <option value={"Icecream"}>Icecream</option>
-            <option value={"Dosa"}>Dosa</option>
-            <option value={"Laptop"}>Laptop</option>
-            <option value={"Bag"}>Bag</option>
-            <option value={"Bottle"}>Bottle</option>
-            <option value={"Clothes"}>Clothes</option>
-            <option value={"Phone"}>Phone</option>
-            <option value={"PC"}>PC</option>
+            <option value="">Select Category</option>
+            {categoryData.map((category, index) => (
+              <option key={index} value={category}>
+                {category}
+              </option>
+            ))}
           </select>
         </div>
 

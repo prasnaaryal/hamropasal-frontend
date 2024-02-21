@@ -1,22 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import AllProduct from "../component/AllProduct";
-import { addCartItem } from "../redux/productSlide";
+import {
+  addCartItem,
+  addWishList,
+  deleteWishList,
+} from "../redux/productSlice";
 import review from "../assets/review.png";
+import toast from "react-hot-toast";
+import { MdFavorite } from "react-icons/md";
 
 const Menu = () => {
   const { filterby } = useParams();
   const dispatch = useDispatch();
+  const [isWishlistItem, setIsWishlistItem] = useState(false);
   const productData = useSelector((state) => state.product.productList);
   // console.log(productData)
 
   const productDisplay = productData.filter((el) => el._id === filterby)[0];
   console.log({ productDisplay });
 
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+
   const handleAddCartProduct = (e) => {
-    // e.stopPropagation();
-    dispatch(addCartItem(productDisplay));
+    if (isLoggedIn) {
+      dispatch(addCartItem(productDisplay));
+    } else {
+      toast("Please log in to add items to the cart");
+    }
+  };
+
+  const handleWishlistAction = (e) => {
+    if (isWishlistItem) {
+      dispatch(deleteWishList(productDisplay));
+      setIsWishlistItem(false);
+      toast.success("Item remove from Wishlist");
+    } else {
+      dispatch(addWishList(productDisplay));
+      setIsWishlistItem(true);
+      toast.success("Item added to Wishlist");
+    }
   };
 
   return (
@@ -55,6 +79,13 @@ const Menu = () => {
               onClick={handleAddCartProduct}
             >
               Add to cart
+            </button>
+            <button onClick={handleWishlistAction}>
+              <MdFavorite
+                className={`text-3xl ${
+                  isWishlistItem ? "text-red-600" : "text-gray-400"
+                }`}
+              />
             </button>
           </div>
           <div className="border rounded mt-6 ">

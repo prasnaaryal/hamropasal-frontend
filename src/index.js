@@ -11,7 +11,8 @@ import {
 } from "react-router-dom";
 import Home from "./page/Home";
 import Menu from "./page/Menu";
-import Newproduct from "./page/Newproduct";
+import Newproduct from "./page/manage/NewProduct";
+import EditProduct from "./page/manage/EditProduct";
 import Login from "./page/Login";
 import Signup from "./page/Signup";
 import { Provider } from "react-redux";
@@ -20,6 +21,8 @@ import Cart from "./page/Cart";
 import Dashboard from "./page/manage/Dashboard";
 import ProductList from "./page/manage/ProductList";
 import Settings from "./page/manage/Settings";
+import WishList from "./page/WishList";
+import AuthProvider from "./component/AuthProvider";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,10 +32,12 @@ const router = createBrowserRouter(
       <Route path="menu/:filterby" element={<Menu />} />
       <Route path="login" element={<Login />} />
       <Route path="manage/newproduct" element={<Newproduct />} />
+      <Route path="manage/editproduct/:id" element={<EditProduct />} />
       <Route path="signup" element={<Signup />} />
-      <Route path="cart" element={<Cart />} />
+      <Route path="cart" element={<Cart />} />{" "}
+      <Route path="wishlist" element={<WishList />} />
       <Route path="manage/dashboard" element={<Dashboard />} />
-      <Route path="manage/productlist" element={<ProductList />} />
+      <Route path="manage/products" element={<ProductList />} />
       <Route path="manage/settings" element={<Settings />} />
     </Route>
   )
@@ -41,7 +46,9 @@ const router = createBrowserRouter(
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </Provider>
 );
 

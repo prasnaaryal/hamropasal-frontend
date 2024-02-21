@@ -1,23 +1,30 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { addCartItem } from "../redux/productSlide";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { addCartItem } from "../redux/productSlice";
 import review from "../assets/review.png";
+import toast from "react-hot-toast";
 
 const CardFeature = ({ image, name, price, category, loading, id }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
   const handleAddCartProduct = (e) => {
-    // e.stopPropagation();
-    dispatch(
-      addCartItem({
-        _id: id,
-        name: name,
-        price: price,
-        category: category,
-        image: image,
-      })
-    );
+    if (isLoggedIn) {
+      dispatch(
+        addCartItem({
+          _id: id,
+          name: name,
+          price: price,
+          category: category,
+          image: image,
+        })
+      );
+    } else {
+      toast("Please log in to add items to the cart");
+    }
   };
   return (
     <div className="w-full h-auto p-4 rounded-lg bg-white  hover:shadow-lg drop-shadow-lg  cursor-pointer flex flex-col">

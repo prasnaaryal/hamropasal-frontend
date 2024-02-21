@@ -6,14 +6,14 @@ import {
   decreaseQty,
   deleteCartItem,
   increaseQty,
-} from "../redux/productSlide";
+} from "../redux/productSlice";
 
 const CartProduct = ({ id, name, image, category, qty, total, price }) => {
   const dispatch = useDispatch();
 
   return (
     <div>
-      <div >
+      <div>
         <div className="grid grid-cols-12 w-full">
           <div className="col-span-2 flex items-center w-full justify-center">
             <div className="p-3 bg-white rounded overflow-hidden">
