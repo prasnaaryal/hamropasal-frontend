@@ -18,7 +18,7 @@ const Home = () => {
   // console.log(productData);
   const homeProductCartList = productData.slice(1, 5);
   const homeProductCartListvegetables = productData.filter(
-    (el) => el.category === "Vegetable",
+    (el) => el.category === "Headphones",
     []
   );
   // console.log(homeProductCartListvegetables);
@@ -111,7 +111,7 @@ const Home = () => {
           <div className="">
             <div className="flex w-full items-center">
               <h2 className="font-bold text-2xl text-slate-800 mb-4">
-                fresh vegetable
+                Hot Sales
               </h2>
             </div>
             <div className="ml-auto flex gap-4 pb-4 w-full justify-end">
