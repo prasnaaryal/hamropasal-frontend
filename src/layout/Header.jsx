@@ -135,7 +135,7 @@ const Header = () => {
             {userData.image ? (
               <div className="text-slate-600 " onClick={handleShowMenu}>
                 {userData.image ? (
-                  <div className="text-3xl cursor-pointer w-8 h-8 rounded-full overflow-hidden drop-shadow-md">
+                  <div className="text-3xl cursor-pointer w-8 h-8 rounded-full overflow-hidden drop-shadow-md border border-amber-500">
                     {/* for image */}
                     <img src={userData.image} className="h-full w-full" />
                   </div>
@@ -156,6 +156,14 @@ const Header = () => {
                         className="whitespace-nowrap cursor-pointer p-2"
                       >
                         Products
+                      </Link>
+                    ) : null}
+                    {userData.email ? (
+                      <Link
+                        to={"manage/orders"}
+                        className="whitespace-nowrap cursor-pointer p-2"
+                      >
+                        Orders
                       </Link>
                     ) : null}
                     {userData.email ? (

@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import Footer from "./layout/Footer";
 import { useDispatch } from "react-redux";
-import { setUserData } from "./redux/userSlice"; // Adjust import path as necessary
+import { setUserData } from "./redux/userSlice";
 import { setDataProduct } from "./redux/productSlice";
 import { setDataCategory } from "./redux/categorySlice";
 import { SearchProvider } from "./context/SearchContext";

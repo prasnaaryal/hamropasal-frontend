@@ -20,6 +20,7 @@ import { store } from "./redux";
 import Cart from "./page/Cart";
 import Dashboard from "./page/manage/Dashboard";
 import ProductList from "./page/manage/ProductList";
+import OrderList from "./page/manage/OrderList";
 import Settings from "./page/manage/Settings";
 import WishList from "./page/WishList";
 import AuthProvider from "./component/AuthProvider";
@@ -38,6 +39,7 @@ const router = createBrowserRouter(
       <Route path="wishlist" element={<WishList />} />
       <Route path="manage/dashboard" element={<Dashboard />} />
       <Route path="manage/products" element={<ProductList />} />
+      <Route path="manage/orders" element={<OrderList />} />
       <Route path="manage/settings" element={<Settings />} />
     </Route>
   )
