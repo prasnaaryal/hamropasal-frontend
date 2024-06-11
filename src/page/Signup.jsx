@@ -11,8 +11,7 @@ function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [data, setData] = useState({
-    firstName: "",
-    lastName: "",
+    fullName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -21,12 +20,12 @@ function Signup() {
 
   console.log(data);
 
-  const handleShowPassword = () => {
+ const handleShowPassword = () => {
     setShowPassword((preve) => !preve);
   };
   const handleShowConfirmPassword = () => {
     setShowConfirmPassword((preve) => !preve);
-  };
+  }; 
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
