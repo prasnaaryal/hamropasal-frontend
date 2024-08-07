@@ -40,7 +40,7 @@ function Signup() {
   const handleUploadProfileImage = async (e) => {
     // console.log(e.target.files[0])
     const data = await ImagetoBase64(e.target.files[0]);
-    console.log(data);
+    // console.log(data);
 
     setData((preve) => {
       return {
@@ -49,13 +49,14 @@ function Signup() {
       };
     });
   };
-  console.log(process.env.REACT_APP_SERVER_DOMAIN);
+  // console.log(process.env.REACT_APP_SERVER_DOMAIN);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { firstName, email, password, confirmPassword } = data;
     if (firstName && email && password && confirmPassword) {
       if (password === confirmPassword) {
-        console.log(data);
+        // console.log(data);
         const fetchData = await fetch(
           `${process.env.REACT_APP_SERVER_DOMAIN}/auth/register`,
           {
@@ -68,7 +69,7 @@ function Signup() {
         );
 
         const dataRes = await fetchData.json();
-        console.log(dataRes);
+        // console.log(dataRes);
 
         // alert(dataRes.message);
         toast(dataRes.message);

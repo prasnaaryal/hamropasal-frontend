@@ -23,10 +23,10 @@ const AuthProvider = ({ children }) => {
 
         if (!response.ok) throw new Error("Failed to load user data");
         const { user } = await response.json();
-        console.log({ user });
+        // console.log({ user });
         dispatch(loginRedux({ user }));
       } catch (error) {
-        console.error(error);
+        // console.error(error);
         // localStorage.removeItem("accessToken");
       }
     };

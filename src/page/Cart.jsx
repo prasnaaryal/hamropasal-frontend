@@ -53,7 +53,7 @@ const Cart = () => {
       }
 
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
 
       // Redirect to the payment URL received in the response
       window.location.href = data.payment_url;

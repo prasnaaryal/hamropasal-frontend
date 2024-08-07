@@ -8,7 +8,7 @@ import { deleteProductById } from "../../redux/productSlice";
 const ProductList = () => {
   const dispatch = useDispatch();
   const productData = useSelector((state) => state.product.productList);
-  console.log({ productData });
+  // console.log({ productData });
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);

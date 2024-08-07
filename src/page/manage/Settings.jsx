@@ -19,7 +19,7 @@ const Settings = () => {
 
   const handleSavePassword = () => {
     if (newPassword === confirmNewPassword) {
-      console.log("Password changed to:", newPassword);
+      // console.log("Password changed to:", newPassword);
       setCurrentPassword("");
       setNewPassword("");
       setConfirmNewPassword("");

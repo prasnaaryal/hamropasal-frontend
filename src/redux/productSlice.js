@@ -55,23 +55,23 @@ export const productSlice = createSlice({
       }
     },
     deleteCartItem: (state, action) => {
-      console.log(action.payload);
+      // console.log(action.payload);
       toast("one item deleted");
       const index = state.cartItem.findIndex((el) => el._id === action.payload);
       state.cartItem.splice(index, 1);
     },
     addWishList: (state, action) => {
       const check = state.wishList.some((el) => el._id === action.payload._id);
-      console.log("action", action);
+      // console.log("action", action);
       if (check) {
         toast("Already Item in Wishlist");
       } else {
         state.wishList = [...state.wishList, { ...action.payload }];
-        console.log(state.wishList, "wishlist");
+        // console.log(state.wishList, "wishlist");
       }
     },
     deleteWishList: (state, action) => {
-      console.log(action.payload);
+      // console.log(action.payload);
       // toast("one item deleted");
       const index = state.wishList.findIndex((el) => el._id === action.payload);
       state.wishList.splice(index, 1);
