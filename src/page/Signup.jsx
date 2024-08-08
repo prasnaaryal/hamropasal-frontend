@@ -99,9 +99,9 @@ function Signup() {
               <p className="text-sm p-1 text-white">Upload</p>
             </div>
             <input
-              type={"file"}
+              type="file"
               id="profileImage"
-              accept="image/*"
+              accept="image/jpeg, image/png"
               className="hidden"
               onChange={handleUploadProfileImage}
             />

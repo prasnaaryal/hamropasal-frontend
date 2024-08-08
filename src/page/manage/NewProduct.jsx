@@ -123,8 +123,8 @@ const Newproduct = () => {
               )}
 
               <input
-                type={"file"}
-                accept="image/*"
+                type="file"
+                accept="image/jpeg, image/png"
                 id="image"
                 onChange={uploadImage}
                 className="hidden"
