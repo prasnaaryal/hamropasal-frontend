@@ -6,14 +6,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { ImagetoBase64 } from "../utility/ImagetoBase64";
 import toast from "react-hot-toast";
 
-const passwordPolicyRegex =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{1,8}$/;
-
 function Signup() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [passwordStrength, setPasswordStrength] = useState(0); // Password strength state
   const [data, setData] = useState({
     fullName: "",
     email: "",
@@ -36,19 +32,6 @@ function Signup() {
       ...prev,
       [name]: value,
     }));
-    if (name === "password") {
-      evaluatePasswordStrength(value);
-    }
-  };
-
-  const evaluatePasswordStrength = (password) => {
-    let strength = 0;
-    if (password.length >= 8) strength += 1;
-    if (/[A-Z]/.test(password)) strength += 1;
-    if (/[a-z]/.test(password)) strength += 1;
-    if (/\d/.test(password)) strength += 1;
-    if (/[!@#$%^&*]/.test(password)) strength += 1;
-    setPasswordStrength(strength);
   };
 
   const handleUploadProfileImage = async (e) => {
@@ -65,27 +48,21 @@ function Signup() {
 
     if (firstName && email && password && confirmPassword) {
       if (password === confirmPassword) {
-        if (passwordPolicyRegex.test(password)) {
-          const fetchData = await fetch(
-            `${process.env.REACT_APP_SERVER_DOMAIN}/auth/register`,
-            {
-              method: "POST",
-              headers: {
-                "content-type": "application/json",
-              },
-              body: JSON.stringify(data),
-            }
-          );
-
-          const dataRes = await fetchData.json();
-          toast(dataRes.message);
-          if (dataRes.alert) {
-            navigate("/login");
+        const fetchData = await fetch(
+          `${process.env.REACT_APP_SERVER_DOMAIN}/auth/register`,
+          {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(data),
           }
-        } else {
-          toast.error(
-            "Password must be 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character."
-          );
+        );
+
+        const dataRes = await fetchData.json();
+        toast(dataRes.message);
+        if (dataRes.alert) {
+          navigate("/login");
         }
       } else {
         toast.error("Passwords do not match");
@@ -93,40 +70,6 @@ function Signup() {
     } else {
       toast.error("Please fill in all required fields");
     }
-  };
-
-  const renderPasswordStrengthBar = () => {
-    if (!data.password) return null;
-
-    const strengthLevels = ["Very Weak", "Weak", "Fair", "Good", "Strong"];
-    const strengthColors = [
-      "#ff4d4f",
-      "#ff7a45",
-      "#ffec3d",
-      "#bae637",
-      "#73d13d",
-    ];
-
-    return (
-      <div className="mt-2">
-        <div className="flex items-center">
-          <div
-            className="h-2 rounded-full transition-all duration-300"
-            style={{
-              width: `${(passwordStrength / 5) * 100}%`,
-              backgroundColor:
-                strengthColors[passwordStrength - 1] || "#ff4d4f",
-            }}
-          />
-        </div>
-        <p
-          className="text-xs mt-1"
-          style={{ color: strengthColors[passwordStrength - 1] || "#ff4d4f" }}
-        >
-          {strengthLevels[passwordStrength - 1] || "Very Weak"}
-        </p>
-      </div>
-    );
   };
 
   return (
@@ -211,7 +154,6 @@ function Signup() {
                 {showPassword ? <BiShow /> : <BiHide />}
               </span>
             </div>
-            {renderPasswordStrengthBar()}
           </div>
 
           <div>
