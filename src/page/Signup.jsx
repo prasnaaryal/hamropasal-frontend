@@ -10,8 +10,10 @@ function Signup() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState(0);
   const [data, setData] = useState({
-    fullName: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -32,6 +34,10 @@ function Signup() {
       ...prev,
       [name]: value,
     }));
+
+    if (name === "password") {
+      setPasswordStrength(calculatePasswordStrength(value));
+    }
   };
 
   const handleUploadProfileImage = async (e) => {
@@ -40,6 +46,16 @@ function Signup() {
       ...prev,
       image: data,
     }));
+  };
+
+  const calculatePasswordStrength = (password) => {
+    let strength = 0;
+    if (password.length > 5) strength++;
+    if (password.length > 7) strength++;
+    if (/[A-Z]/.test(password)) strength++;
+    if (/[0-9]/.test(password)) strength++;
+    if (/[^A-Za-z0-9]/.test(password)) strength++;
+    return strength;
   };
 
   const handleSubmit = async (e) => {
@@ -70,6 +86,40 @@ function Signup() {
     } else {
       toast.error("Please fill in all required fields");
     }
+  };
+
+  const renderPasswordStrengthBar = () => {
+    if (!data.password) return null;
+
+    const strengthLevels = ["Very Weak", "Weak", "Fair", "Good", "Strong"];
+    const strengthColors = [
+      "#ff4d4f",
+      "#ff7a45",
+      "#ffec3d",
+      "#bae637",
+      "#73d13d",
+    ];
+
+    return (
+      <div className="mt-2">
+        <div className="flex items-center">
+          <div
+            className="h-2 rounded-full transition-all duration-300"
+            style={{
+              width: `${(passwordStrength / 5) * 100}%`,
+              backgroundColor:
+                strengthColors[passwordStrength - 1] || "#ff4d4f",
+            }}
+          />
+        </div>
+        <p
+          className="text-xs mt-1"
+          style={{ color: strengthColors[passwordStrength - 1] || "#ff4d4f" }}
+        >
+          {strengthLevels[passwordStrength - 1] || "Very Weak"}
+        </p>
+      </div>
+    );
   };
 
   return (
@@ -154,6 +204,7 @@ function Signup() {
                 {showPassword ? <BiShow /> : <BiHide />}
               </span>
             </div>
+            {renderPasswordStrengthBar()}
           </div>
 
           <div>
