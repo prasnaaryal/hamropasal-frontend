@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { FaRegUser } from "react-icons/fa6";
 import { useSearch } from "../context/SearchContext";
 import { MdFavorite } from "react-icons/md";
+import _ from "lodash";
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -62,6 +63,8 @@ const Header = () => {
   const refreshPage = () => {
     window.location.href = "/";
   };
+
+  console.log({ userData });
 
   return (
     <header className="fixed shadow-md w-full h-16 px-2 md:px-4 z-50 bg-white">
@@ -132,14 +135,12 @@ const Header = () => {
               </Link>
             </div>
 
-            {userData.image ? (
+            {userData && userData.isLoggedIn ? (
               <div className="text-slate-600 " onClick={handleShowMenu}>
-                {userData.image ? (
-                  <div className="text-3xl cursor-pointer w-8 h-8 rounded-full overflow-hidden drop-shadow-md border border-amber-500">
-                    {/* for image */}
-                    <img src={userData.image} className="h-full w-full" />
-                  </div>
-                ) : null}
+                <div className="text-3xl cursor-pointer w-8 h-8 rounded-full overflow-hidden drop-shadow-md border border-amber-500">
+                  {/* for image */}
+                  <img src={userData.image} className="h-full w-full" />
+                </div>
                 {showMenu && (
                   <div className="absolute right-2 bg-white shadow drop-shadow-md flex flex-col min-w-[120] text-center">
                     {userData.email === process.env.REACT_APP_ADMIN_EMAIL && (
@@ -150,45 +151,30 @@ const Header = () => {
                         Dashboard
                       </Link>
                     )}
-                    {userData.email ? (
                       <Link
                         to={"manage/products"}
                         className="whitespace-nowrap cursor-pointer p-2"
                       >
                         Products
                       </Link>
-                    ) : null}
-                    {userData.email ? (
                       <Link
                         to={"manage/orders"}
                         className="whitespace-nowrap cursor-pointer p-2"
                       >
                         Orders
                       </Link>
-                    ) : null}
-                    {userData.email ? (
                       <Link
                         to={"manage/settings"}
                         className="whitespace-nowrap cursor-pointer p-2"
                       >
                         Settings
                       </Link>
-                    ) : null}
-                    {userData.image ? (
                       <p
                         className="cursor-pointer text-white p-2 bg-red-500 "
                         onClick={handleLogout}
                       >
                         Logout ({userData.firstName})
                       </p>
-                    ) : (
-                      <Link
-                        to={"login"}
-                        className="whitespace-nowrap cursor-pointer px-2"
-                      >
-                        login
-                      </Link>
-                    )}
 
                     <nav className="text-base md:text-lg flex flex-col md:hidden">
                       <Link to={""} className="px-2 py-1">
